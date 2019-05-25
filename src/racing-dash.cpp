@@ -1,8 +1,8 @@
 #include "../dashboard_shield/src/dashboard_shield.h"
 #include "../aemnet_utils/src/aemnet_utils.h"
+#include "constants.h"
+#include "normalizers.h"
 #include "rpm.h"
-
-typedef uint8_t (*normalizing_function)(aemnet_utils::fixed_point_t);
 
 void setup();
 uint8_t write_shifting_lights(dashboard_shield::dashboard_t*, uint8_t, aemnet_utils::fixed_point_t);
@@ -40,7 +40,7 @@ uint8_t write_shifting_lights(dashboard_shield::dashboard_t* dash, uint8_t ch, a
   if( value < 0 || value > 20000) return 1;
 
   /* Turn all shifting lights off  */
-  for(uint8_t i=0; i < RPM_LIGHTS; ++i){
+  for(uint8_t i=0; i < STRIP_LIGHTS; ++i){
 	dash->pixel_channels[ch].pixels[i].red = 0;
 	dash->pixel_channels[ch].pixels[i].grn = 0;
 	dash->pixel_channels[ch].pixels[i].blu = 0;
@@ -50,7 +50,7 @@ uint8_t write_shifting_lights(dashboard_shield::dashboard_t* dash, uint8_t ch, a
   
   /* Turn all blue */
   if(value >= RPM_T4 /*&& value < RPM_T5*/){
-	for(uint8_t i=0; i < RPM_LIGHTS; ++i){
+	for(uint8_t i=0; i < STRIP_LIGHTS; ++i){
 	  dash->pixel_channels[ch].pixels[i].red = 0;
 	  dash->pixel_channels[ch].pixels[i].grn = 0;
 	  dash->pixel_channels[ch].pixels[i].blu = 255;
@@ -62,7 +62,7 @@ uint8_t write_shifting_lights(dashboard_shield::dashboard_t* dash, uint8_t ch, a
   /* Flashing blue or red */
   if(value >= RPM_T5){
 	shifting_light_flash_toggle = !shifting_light_flash_toggle;
-	for(uint8_t i=0; i < RPM_LIGHTS; ++i){
+	for(uint8_t i=0; i < STRIP_LIGHTS; ++i){
 	  if(value < RPM_MAX)
 		dash->pixel_channels[ch].pixels[i].blu = 255 * shifting_light_flash_toggle;
 	  else
