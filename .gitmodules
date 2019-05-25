@@ -1,0 +1,6 @@
+[submodule "aemnet_utils"]
+	path = aemnet_utils
+	url = git@github.com:rahulsalvi/aemnet_utils.git
+[submodule "dashboard_shield"]
+	path = dashboard_shield
+	url = git@github.com:rahulsalvi/dashboard_shield.git
