@@ -1,12 +1,12 @@
 #include "../dashboard_shield/src/dashboard_shield.h"
 #include "../aemnet_utils/src/aemnet_utils.h"
 #include "constants.h"
-#include "normalizers.h"
+#include "scaling.h"
 #include "rpm.h"
 
 void setup();
 uint8_t write_shifting_lights(dashboard_shield::dashboard_t*, uint8_t, aemnet_utils::fixed_point_t);
-uint8_t write_ring(dashboard_shield::dashboard_t*, uint8_t, aemnet_utils::fixed_point_t, normalizing_function);
+uint8_t write_ring(dashboard_shield::dashboard_t*, uint8_t, aemnet_utils::fixed_point_t, scaling_function);
 rpm_limits rpm_lim;
 
 
@@ -33,11 +33,15 @@ void setup(){
   compute_rpm_limits(&rpm_lim);
 }
 
+uint8_t write_coolant_gauge(dashboard_shield::dashboard_t* dash, uint8_t ch, aemnet_utils::fixed_point_t value){
+  
+}
+
 uint8_t write_shifting_lights(dashboard_shield::dashboard_t* dash, uint8_t ch, aemnet_utils::fixed_point_t value){
   
   value >>= 16; // Remove decimal
 
-  if( value < 0 || value > 20000) return 1;
+  if( value < 0 || value > 20000) return -1;
 
   /* Turn all shifting lights off  */
   for(uint8_t i=0; i < STRIP_LIGHTS; ++i){
