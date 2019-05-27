@@ -7,6 +7,11 @@ COOLANT TEMP      (clt < 65)  ? 0  :
                   (clt < 96)  ? 6  : 
                   (clt < 100) ? 7  : 8;
 
+				  85-90 Operating Temp
+				  Steps of 2 degrees on the right side
+				  Make Right more sensitive than left
+				  Top end is 110C				  
+
 THROTTLE            (thr <=3)   ? -1  :
                     (thr < 6)     ? 0  :
                     (thr < 13)    ? 1  :
@@ -31,5 +36,3 @@ RPM - RING          (rpm < 100)  ? 0  :
                     (rpm < 1100) ? 10 :
                     (rpm < 1200) ? 11 : 
                     (rpm < 1300) ? 12 : 13;
-
-
